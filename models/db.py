@@ -149,7 +149,7 @@ if configuration.get('scheduler.enabled'):
 # -------------------------------------------------------------------------
 
 db.define_table('cheeps',
-                Field('body', 'text', requires=IS_LENGTH(140, 1), label="What's up?"),
+                Field('body', 'text', requires=IS_LENGTH(140, 1), label=""),
                 Field('author', 'reference auth_user', readable=False, writable=False),
                 Field('tstamp', 'datetime', readable=False, writable=False),
                 Field('isReply', 'boolean', readable=False, writable=False))
