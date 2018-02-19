@@ -59,7 +59,7 @@
           {{pass}}          
         </ul>
         {{if 'auth' in globals():}}
-        <ul class="nav navbar-nav ml-auto">
+        <ul class="nav navbar-nav navbar-right">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{if auth.user:}}{{=auth.user.first_name}}{{else:}}LOGIN{{pass}}
