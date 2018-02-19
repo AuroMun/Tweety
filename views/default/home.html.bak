@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+
+{{=form}}
+{{for cheep in cheeps:}}
+<div>
+<h3>
+    {{=(cheep.author.username)}} on {{=cheep.tstamp}}:
+</h3>
+{{=cheep.body}}
+</div>
+
+{{pass}}

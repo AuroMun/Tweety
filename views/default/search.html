@@ -1,0 +1,13 @@
+{{extend 'layout.html'}}
+<h2>Search for birdies to follow:</h2>
+{{=form}}
+
+{{if people:}}
+<h3>
+    Birdies:
+</h3>
+{{for user in people:}}
+{{=A(user.auth_user.first_name, _href=URL('profile', args=user.auth_user.id))}}
+
+{{pass}}
+{{pass}}
