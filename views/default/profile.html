@@ -2,12 +2,12 @@
 <div class="panel">
 {{for cheep in cheeps:}}
 <div class="cheepWrapper">
-<img class="avatar" src={{=URL('static', 'images/default_avatar.png')}}/>
-        <span class="name">{{=(cheep.author.first_name)}}</span> @username <span class="time">15m</span>
+<img class="avatar" src={{=URL('default/download', cheep.author.picture)}}/>
+        <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
         <p>
             {{=cheep.body}}</a>
         </p>
-         <span class="time" style="padding-left:20px;"> on {{=cheep.tstamp}} </span>
+         <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
 
 </div>
 {{pass}}
