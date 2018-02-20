@@ -1,8 +1,12 @@
 {{extend 'layout.html'}}
 <div class="panel">
+{{for det in details:}}
+{{=det.first_name}}
+{{=det.last_name}}   
+{{pass}}
 {{for cheep in cheeps:}}
 <div class="cheepWrapper">
-<img class="avatar" src={{=URL('static', 'images/default_avatar.png')}}>
+<img class="avatar" src={{=URL('static', 'images/default_avatar.png')}}/>
         <span class="name">{{=(cheep.author.first_name)}}</span> @username <span class="time">15m</span>
         <p>
             {{=cheep.body}}</a>

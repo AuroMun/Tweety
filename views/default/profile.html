@@ -1,4 +1,8 @@
 {{extend 'layout.html'}}
+{{for det in details:}}
+{{=det.first_name}}
+{{=det.last_name}}   
+{{pass}}
 <div class="panel">
 {{for cheep in cheeps:}}
 <div class="cheepWrapper">
