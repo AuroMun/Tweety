@@ -28,6 +28,7 @@ def profile():
     if not user:
         redirect(URL('home'))
     cheeps = db(db.cheeps.author==user.id).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    details = db(db.auth_user.id==user.id).select()
     return locals()
 
 @auth.requires_login()

@@ -221,3 +221,8 @@
 [2018-02-20 18:37:52] EDIT Tweety/static/css/custom.css: -6
 [2018-02-20 18:37:58] EDIT Tweety/static/css/custom.css: 6
 [2018-02-20 18:38:12] EDIT Tweety/static/css/custom.css: 0
+[2018-02-20 21:59:22] EDIT Tweety/controllers/default.py: 1
+[2018-02-20 22:00:41] EDIT Tweety/views/default/profile.html: 4
+[2018-02-20 22:01:04] EDIT Tweety/views/default/profile.html: 1
+[2018-02-20 22:01:28] EDIT Tweety/views/default/profile.html: -1
+[2018-02-20 22:02:08] EDIT Tweety/views/default/profile.html: 0

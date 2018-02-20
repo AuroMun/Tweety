@@ -16,7 +16,7 @@ def home():
     db.cheeps.isReply.default = False
     form = SQLFORM(db.cheeps).process()
     form.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
-    form.element('textarea[name=body]')['placeholder'] = "What's up, lil bird?"
+    form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
 
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
