@@ -1,12 +1,16 @@
 {{extend 'layout.html'}}
 
 {{=form}}
+<div class="panel center">
 {{for cheep in cheeps:}}
-<div>
-<h3>
-    {{=(cheep.author.username)}} on {{=cheep.tstamp}}:
-</h3>
-{{=cheep.body}}
-</div>
+<div class="cheepWrapper">
+<img class="avatar" src="gfx/user1.png">
+        <span class="name">{{=(cheep.author.first_name)}}</span> @username <span class="time">15m</span>
+        <p>
+            {{=cheep.body}}</a>
+        </p>
+         <span class="time" style="padding-left:20px;"> on {{=cheep.tstamp}} </span>
 
+</div>
 {{pass}}
+</div>
