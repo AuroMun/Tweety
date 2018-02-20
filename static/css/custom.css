@@ -19,9 +19,9 @@ div.panel {
   }
   p {
     padding: 0 24px;
-    margin: 18px 0;
-      
+    margin: 18px 0;  
   }
+ 
 }
 
 div.panel {
@@ -38,8 +38,8 @@ div.cheepWrapper:last-child{
 div.cheepWrapper {
     padding: 15px 0;
     border-bottom: 1px solid;
+    
 }
-
 
 
 div.cheepWrapper span.name{
@@ -56,6 +56,8 @@ div.cheepWrapper span.time {
 img.avatar {
     margin: 0 19px 0 20px;
     float: left;
+    width: 30px;
+     height: 30px;
 }
 
 p {
