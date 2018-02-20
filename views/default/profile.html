@@ -1,8 +1,15 @@
 {{extend 'layout.html'}}
+<div class="leftPanel">
 {{for det in details:}}
+<img class="leftAvatar" src={{=URL('default/download', det.picture)}}/>
+</br>
 {{=det.first_name}}
-{{=det.last_name}}   
+{{=det.last_name}} 
+</br>
+{{=det.handle}}
 {{pass}}
+</div>
+
 <div class="panel">
 {{for cheep in cheeps:}}
 <div class="cheepWrapper">

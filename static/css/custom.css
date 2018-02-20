@@ -1,8 +1,6 @@
 div.panel {
+    display:inline-block;
     border-bottom: 1px solid;
-}
-
-div.panel {
     border: 1px solid;
     background: white;
     margin: 0;
@@ -25,10 +23,11 @@ div.panel {
 }
 
 div.panel {
-       word-break: break-all;
+    margin-left:150px;
+    float: middle;
+    word-break: break-all;
     white-space: normal;
     width:500px;
-    margin:0 auto;
 }
 
 div.cheepWrapper:last-child{
@@ -68,6 +67,16 @@ p {
     .antialiased(@text-color);
 }
 
+div.leftPanel {
+    background: white;
+    float: left;
+    display:inline-block;
+}
+
+div.leftPanel img{
+     width:100px;
+     height:100px;
+}
 span.spacing {
     padding-left: 9px;
     margin-left: 9px;
