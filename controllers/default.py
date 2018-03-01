@@ -14,8 +14,13 @@ def home():
     db.cheeps.author.default = auth.user
     db.cheeps.tstamp.default = request.now
     form = SQLFORM(db.cheeps).process()
-    form.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
+    form.element('textarea[name=body]')['_style'] = 'width:400px; height:40px;'
     form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
+    form2 = SQLFORM(db.cheeps, col3={'name': 'Your full name'})
+    form2.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
+    form2.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
+    if form2.process().accepted:
+       response.flash("LALALA")
 
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]

@@ -14,8 +14,13 @@ def home():
     db.cheeps.author.default = auth.user
     db.cheeps.tstamp.default = request.now
     form = SQLFORM(db.cheeps).process()
-    form.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
+    form.element('textarea[name=body]')['_style'] = 'width:400px; height:40px;'
     form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
+    form2 = SQLFORM(db.cheeps, col3={'name': 'Your full name'})
+    form2.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
+    form2.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
+    if form2.process().accepted:
+       
 
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
@@ -47,7 +52,7 @@ def search():
             query1 = (db.followers.followee==person.id)
             query2 = (db.followers.follower==auth.user.id)
             listOfFollowers =  db(query1 & query2).select()
-            if len(listOfFollowers)!=1:
+            if len(listOfFollowers)!=0:
                 person['isFollow'] = True
                 print "You are following " + person.first_name
             else:

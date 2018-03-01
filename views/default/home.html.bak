@@ -28,7 +28,7 @@
         <!-- Modal body -->
         <div class="modal-body">
           {{=cheep.body}}
-           <input type="submit" value="Submit">
+          {{=form2}}
         </div>
         
         <!-- Modal footer -->
