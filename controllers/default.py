@@ -38,8 +38,8 @@ def profile():
 @auth.requires_login()
 def reply():
     a = request.post_vars
-    db['cheeps'].insert(**{'body': a.body, 'author': a.child, 'tstamp': request.now})
-    db['replies'].insert(**{'child': a.child, 'parent': a.parent})
+    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.child, 'tstamp': request.now})
+    db['replies'].insert(**{'child': id_new, 'parent': a.parent})
     return locals()
 
 @auth.requires_login()
