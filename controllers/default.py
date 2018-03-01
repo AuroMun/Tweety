@@ -39,7 +39,11 @@ def search():
         query = reduce(lambda a,b:a&b,
                        [db.auth_user.first_name.contains(k)|db.auth_user.last_name.contains(k) \
                             for k in tokens])
-        people = db(query).select(orderby=db.auth_user.first_name|db.auth_user.last_name,left=db.followers.on(db.followers.followee==db.auth_user.id))        
+        people = db(query).select( orderby=db.auth_user.first_name|db.auth_user.last_name,left=db.followers.on(db.followers.followee==db.auth_user.id and db.followers.follower==auth.user.id))
+        print "Heyy"
+        for person in people:
+            print person.auth_user.first_name
+            print person.followers
     else:
         people = []
     return locals()
@@ -73,7 +77,7 @@ def grid():
 # ---- Embedded wiki (example) ----
 def wiki():
     auth.wikimenu() # add the wiki to the menu
-    return auth.wiki() 
+    return auth.wiki()
 
 # ---- Action for login/register/etc (required for auth) -----
 def user():
