@@ -44,6 +44,17 @@ def search():
         people = []
     return locals()
 
+@auth.requires_login()
+def follow():
+    me = auth.user
+    if request.env.request_method!='POST': raise HTTP(400)
+    if request.args(0) =='follow' and not db.followers(follower=me,followee=request.args(1)):
+        # insert a new friendship request
+        db.followers.insert(follower=me,followee=request.args(1))
+    elif request.args(0)=='unfollow':
+        # delete a previous friendship request
+        db(db.followers.follower==me)(db.followers.followee==request.args(1)).delete()
+
 # ---- API (example) -----
 @auth.requires_login()
 def api_get_user_email():

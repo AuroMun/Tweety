@@ -8,6 +8,10 @@
 </h3>
 {{for user in people:}}
 {{=A(user.auth_user.first_name, _href=URL('profile', args=user.auth_user.id))}}
-
+{{if user.followers.followee:}}
+	<button onclick="ajax('{{=URL('follow',args=('unfollow',user.auth_user.id))}}',[],null);$(this).parent().html('Unfollowed')">Unfollow</button>
+    {{else:}}
+    <button onclick="ajax('{{=URL('follow',args=('follow',user.auth_user.id))}}',[],null);$(this).parent().html('Followed')">Follow</button> 
+{{pass}}
 {{pass}}
 {{pass}}
