@@ -36,6 +36,13 @@ def profile():
     return locals()
 
 @auth.requires_login()
+def reply():
+    a = request.post_vars
+    db['cheeps'].insert(**{'body': a.body, 'author': a.child, 'tstamp': request.now})
+    db['replies'].insert(**{'child': a.child, 'parent': a.parent})
+    return locals()
+
+@auth.requires_login()
 def search():
     form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()))
     if form.accepts(request):
