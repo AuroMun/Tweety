@@ -7,20 +7,13 @@
     Birdies:
 </h3>
 {{for user in people:}}
-{{=A(user.auth_user.first_name, _href=URL('profile', args=user.auth_user.id))}}
-{{print user.followers.followee, auth.user.id}}
-{{print(auth.user.id in [user.followers.follower])}}
-{{print "Ok"}}
-{{print user.auth_user.id==auth.user.id}}
-{{if user.auth_user.id==auth.user.id:}}
-{{print ""}}
-{{else:}}
+{{=A(user.first_name, _href=URL('profile', args=user.id))}}
 
-{{if auth.user.id in [user.followers.follower]:}}
-	<button onclick="ajax('{{=URL('follow',args=('unfollow',user.auth_user.id))}}',[],null);$(this).parent().html('Unfollowed')">Unfollow</button>
+{{if user.isFollow == True:}}
+	<button onclick="ajax('{{=URL('follow',args=('unfollow',user.id))}}',[],null);$(this).parent().html('Unfollowed')">Unfollow</button>
     {{else:}}
-    <button onclick="ajax('{{=URL('follow',args=('follow',user.auth_user.id))}}',[],null);$(this).parent().html('Followed')">Follow</button>
-{{pass}}
+    <button onclick="ajax('{{=URL('follow',args=('follow',user.id))}}',[],null);$(this).parent().html('Followed')">Follow</button>
+
 {{pass}}
 {{pass}}
 {{pass}}

@@ -13,7 +13,6 @@ def index():
 def home():
     db.cheeps.author.default = auth.user
     db.cheeps.tstamp.default = request.now
-    db.cheeps.isReply.default = False
     form = SQLFORM(db.cheeps).process()
     form.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
     form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
@@ -39,11 +38,21 @@ def search():
         query = reduce(lambda a,b:a&b,
                        [db.auth_user.first_name.contains(k)|db.auth_user.last_name.contains(k) \
                             for k in tokens])
-        people = db(query).select( orderby=db.auth_user.first_name|db.auth_user.last_name,left=db.followers.on(db.followers.followee==db.auth_user.id && db.followers.follower==auth.user.id))
+        people = db(query).select( orderby=db.auth_user.first_name|db.auth_user.last_name)
+        #,left=db.followers.on(db.followers.followee==db.auth_user.id)
         print "Heyy"
         for person in people:
-            print person.auth_user.first_name
-            print person.followers
+            print person.id
+            print auth.user.id
+            query1 = (db.followers.followee==person.id)
+            query2 = (db.followers.follower==auth.user.id)
+            listOfFollowers =  db(query1 & query2).select()
+            if len(listOfFollowers)!=1:
+                person['isFollow'] = True
+                print "You are following " + person.first_name
+            else:
+                person['isFollow'] = False
+                print "You are not following " + person.first_name
     else:
         people = []
     return locals()
