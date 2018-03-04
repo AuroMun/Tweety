@@ -24,7 +24,7 @@ def home():
 
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
-    cheeps = db(db.cheeps.author.belongs(list)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    cheeps = db((db.cheeps.author.belongs(list)) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     replies = db(db.replies).select(orderby=~db.replies.child, limitby=(0,100))
     authID = auth.user.id
     return locals()
@@ -40,7 +40,7 @@ def profile():
 @auth.requires_login()
 def reply():
     a = request.post_vars
-    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now})
+    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now, 'isReply': True})
     db['replies'].insert(**{'child': id_new, 'parent': a.parent})
     redirect(URL('home'))
     return locals()
