@@ -30,7 +30,7 @@ def home():
     return locals()
 
 def profile():
-    user = db.auth_user(request.args(0))
+    user = db.auth_user(request.args(0)) or auth.user
     if not user:
         redirect(URL('home'))
     cheeps = db(db.cheeps.author==user.id).select(orderby=~db.cheeps.tstamp, limitby=(0,100))

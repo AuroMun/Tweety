@@ -9,6 +9,6 @@ response.title = "Tweety"
 response.subtitle = "Cheep cheep cheep cheep"
 response.menu = [
     (T('Home'), False, URL('default','home')),
-    (T('Profile'), False, URL('default','profile/1')),
+    (T('Profile'), False, URL('default','profile')),
     (T('Search'), False, URL('default','search')),
     ]
