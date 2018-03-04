@@ -26,6 +26,7 @@ def home():
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
     cheeps = db(db.cheeps.author.belongs(list)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     replies = db(db.replies).select(orderby=~db.replies.child, limitby=(0,100))
+    authID = auth.user.id
     return locals()
 
 def profile():
@@ -39,8 +40,9 @@ def profile():
 @auth.requires_login()
 def reply():
     a = request.post_vars
-    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.child, 'tstamp': request.now})
+    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now})
     db['replies'].insert(**{'child': id_new, 'parent': a.parent})
+    redirect(URL('home'))
     return locals()
 
 @auth.requires_login()
@@ -80,6 +82,18 @@ def follow():
     elif request.args(0)=='unfollow':
         # delete a previous friendship request
         db(db.followers.follower==me)(db.followers.followee==request.args(1)).delete()
+
+def replies():
+    if request.env.request_method!='POST': raise HTTP(400)
+    parent = request.vars['parent']
+    query1=(db.replies.parent==parent)
+    query2=(db.replies.child==db.cheeps.id)
+    query3=(db.auth_user.id==db.cheeps.author)
+    replies = db(query1 & query2 & query3).select()
+    print replies
+    for reply in replies:
+        print reply.cheeps
+    return locals()
 
 # ---- API (example) -----
 @auth.requires_login()

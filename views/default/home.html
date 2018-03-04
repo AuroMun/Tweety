@@ -1,4 +1,28 @@
 {{extend 'layout.html'}}
+<script>
+  function fillModal(parent, a){
+    //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+    var form = new FormData();
+    form.append("parent", parent);
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://127.0.0.1:8000/Tweety/default/replies",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      console.log("Hehehe")
+      document.getElementById("replyCheeps"+a).innerHTML = response;
+    });
+  }
+</script>
 {{a=0}}
 {{=form}}
 <div class="panel">
@@ -6,47 +30,45 @@
     {{a+=1}}
 <div class="cheepWrapper">
 <img class="avatar" src={{=URL('default/download', cheep.author.picture)}}/>
-        <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}} 
+        <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
         <p>
             {{=cheep.body}}</a>
         </p>
          <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
+        <button type="button" class="btn btn-primary" onclick="fillModal({{=cheep.id}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
     Reply
+
   </button>
 
   <!-- The Modal -->
   <div class="modal fade" id={{="myModal"+str(a)}}>
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Modal Heading</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
           {{=cheep.body}}
-          <form enctype="multipart/form-data" action={{=URL('reply')}} method="post"> Reply: <input name="body" /> <input name="parent" type="hidden" value={{=cheep.id}} /><input type="submit" /> 
+          <form enctype="multipart/form-data" action={{=URL('reply')}} method="post"> Reply: <input name="body" /> <input name="parent" type="hidden" value={{=cheep.id}} /> <input name="author" type="hidden" value={{=authID}} /><input type="submit" />
           </form>
-         {{for reply in replies:}}
-            
-                {{=reply.child}}
-            
-         {{pass}}
+         <div id={{="replyCheeps"+str(a)}}>
+         </div>
         </div>
-        
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-        
+
       </div>
     </div>
   </div>
-  
+
 
 </div>
 {{pass}}
