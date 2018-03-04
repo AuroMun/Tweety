@@ -25,6 +25,7 @@ def home():
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
     cheeps = db(db.cheeps.author.belongs(list)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    replies = db(db.replies).select(orderby=~db.replies.child, limitby=(0,100))
     return locals()
 
 def profile():

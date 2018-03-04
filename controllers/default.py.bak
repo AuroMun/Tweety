@@ -20,11 +20,12 @@ def home():
     form2.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
     form2.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
     if form2.process().accepted:
-       
+       response.flash("LALALA")
 
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
     cheeps = db(db.cheeps.author.belongs(list)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    replies = db(db.replies).select(orderby=~db.child.tstamp, limitby=(0,100))
     return locals()
 
 def profile():
@@ -33,6 +34,13 @@ def profile():
         redirect(URL('home'))
     cheeps = db(db.cheeps.author==user.id).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     details = db(db.auth_user.id==user.id).select()
+    return locals()
+
+@auth.requires_login()
+def reply():
+    a = request.post_vars
+    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.child, 'tstamp': request.now})
+    db['replies'].insert(**{'child': id_new, 'parent': a.parent})
     return locals()
 
 @auth.requires_login()

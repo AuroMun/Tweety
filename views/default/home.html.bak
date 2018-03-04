@@ -1,8 +1,9 @@
 {{extend 'layout.html'}}
-
+{{a=0}}
 {{=form}}
 <div class="panel">
 {{for cheep in cheeps:}}
+    {{a+=1}}
 <div class="cheepWrapper">
 <img class="avatar" src={{=URL('default/download', cheep.author.picture)}}/>
         <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}} 
@@ -10,12 +11,12 @@
             {{=cheep.body}}</a>
         </p>
          <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
     Reply
   </button>
 
   <!-- The Modal -->
-  <div class="modal fade" id="myModal">
+  <div class="modal fade" id={{="myModal"+str(a)}}>
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -28,7 +29,13 @@
         <!-- Modal body -->
         <div class="modal-body">
           {{=cheep.body}}
-          {{=form2}}
+          <form enctype="multipart/form-data" action={{=URL('reply')}} method="post"> Reply: <input name="body" /> <input name="parent" type="hidden" value={{=cheep.id}} /><input type="submit" /> 
+          </form>
+         {{for reply in replies:}}
+            
+                {{=reply.child)}}
+            
+         {{pass}}
         </div>
         
         <!-- Modal footer -->
