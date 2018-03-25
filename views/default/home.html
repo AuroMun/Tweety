@@ -8,7 +8,7 @@
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://127.0.0.1:8000/Tweety/default/replies",
+      "url": "{{=URL('replies')}}",
       "method": "POST",
       "processData": false,
       "contentType": false,
@@ -20,6 +20,30 @@
       console.log(response);
       console.log("Hehehe")
       document.getElementById("replyCheeps"+a).innerHTML = response;
+    });
+  }
+    
+    function likeCheep(cheepId, a){
+    //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+    var form = new FormData();
+    form.append("cheepId", cheepId);
+        
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "{{=URL('like')}}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log("liked");
+     n = parseInt(document.getElementById("likeButton"+a).innerHTML.trim().split(" ")[1]);
+        
+      document.getElementById("likeButton"+a).innerHTML = "Like " + (n+1)
     });
   }
 </script>
@@ -35,6 +59,10 @@
             {{=cheep.body}}</a>
         </p>
          <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
+        <button type="button" class="btn btn-primary" id="likeButton{{=a}}" onclick="likeCheep({{=cheep.id}}, {{=a}})">
+    Like {{=cheep.likes}}
+
+  </button>
         <button type="button" class="btn btn-primary" onclick="fillModal({{=cheep.id}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
     Reply
 

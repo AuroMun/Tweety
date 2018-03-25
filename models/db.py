@@ -153,7 +153,8 @@ db.define_table('cheeps',
                 Field('body', 'text', requires=IS_LENGTH(140, 1), label=""),
                 Field('author', 'reference auth_user', readable=False, writable=False),
                 Field('tstamp', 'datetime', readable=False, writable=False),
-                Field('isReply', 'boolean', readable=False, writable=False, default=False))
+                Field('isReply', 'boolean', readable=False, writable=False, default=False),
+                Field('likes', 'integer', readable=False, writable=False, default=0))
 
 db.define_table('replies',
                 Field('parent', 'reference cheeps'),

@@ -24,24 +24,41 @@ def home():
 
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
-    cheeps = db(db.cheeps.author.belongs(list)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
-    replies = db(db.replies).select(orderby=~db.child.tstamp, limitby=(0,100))
+    cheeps = db((db.cheeps.author.belongs(list)) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    replies = db(db.replies).select(orderby=~db.replies.child, limitby=(0,100))
+    authID = auth.user.id
     return locals()
 
 def profile():
-    user = db.auth_user(request.args(0))
+    user = db.auth_user(request.args(0)) or auth.user
     if not user:
         redirect(URL('home'))
-    cheeps = db(db.cheeps.author==user.id).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    cheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     details = db(db.auth_user.id==user.id).select()
     return locals()
 
 @auth.requires_login()
 def reply():
     a = request.post_vars
-    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.child, 'tstamp': request.now})
+    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now, 'isReply': True})
     db['replies'].insert(**{'child': id_new, 'parent': a.parent})
+    redirect(URL('home'))
     return locals()
+
+def like():
+    a = request.post_vars.cheepId
+    print a, auth.user
+    cheepRow = db(db.cheeps.id == a).select().first()
+    l = cheepRow.likes
+    likeCheck = db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).select().count()
+    if likeCheck == 0:
+        cheepRow.update_record(likes=l+1)
+        db['likes'].insert(**{'liker': auth.user.id , 'liked': a})
+        return l+1
+    else:
+        cheepRow.update_record(likes=l-1)
+        db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).delete()
+        return l-1
 
 @auth.requires_login()
 def search():
@@ -80,6 +97,18 @@ def follow():
     elif request.args(0)=='unfollow':
         # delete a previous friendship request
         db(db.followers.follower==me)(db.followers.followee==request.args(1)).delete()
+
+def replies():
+    if request.env.request_method!='POST': raise HTTP(400)
+    parent = request.vars['parent']
+    query1=(db.replies.parent==parent)
+    query2=(db.replies.child==db.cheeps.id)
+    query3=(db.auth_user.id==db.cheeps.author)
+    replies = db(query1 & query2 & query3).select()
+    print replies
+    for reply in replies:
+        print reply.cheeps
+    return locals()
 
 # ---- API (example) -----
 @auth.requires_login()

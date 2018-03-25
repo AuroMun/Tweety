@@ -33,7 +33,7 @@ def profile():
     user = db.auth_user(request.args(0)) or auth.user
     if not user:
         redirect(URL('home'))
-    cheeps = db(db.cheeps.author==user.id).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    cheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     details = db(db.auth_user.id==user.id).select()
     return locals()
 
@@ -44,6 +44,21 @@ def reply():
     db['replies'].insert(**{'child': id_new, 'parent': a.parent})
     redirect(URL('home'))
     return locals()
+
+def like():
+    a = request.post_vars.cheepId
+    print a, auth.user
+    cheepRow = db(db.cheeps.id == a).select().first()
+    l = cheepRow.likes
+    likeCheck = db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).select().count()
+    if likeCheck == 0:
+        cheepRow.update_record(likes=l+1)
+        db['likes'].insert(**{'liker': auth.user.id , 'liked': a})
+        return 1
+    else:
+        cheepRow.update_record(likes=l-1)
+        db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).delete()
+        return 0
 
 @auth.requires_login()
 def search():
