@@ -50,7 +50,7 @@ def like():
     print a, auth.user
     cheepRow = db(db.cheeps.id == a).select().first()
     l = cheepRow.likes
-    likeCheck = db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).select().count()
+    likeCheck = db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).count()
     if likeCheck == 0:
         cheepRow.update_record(likes=l+1)
         db['likes'].insert(**{'liker': auth.user.id , 'liked': a})
@@ -58,7 +58,7 @@ def like():
     else:
         cheepRow.update_record(likes=l-1)
         db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).delete()
-        return 0
+        return -1
 
 @auth.requires_login()
 def search():

@@ -54,11 +54,11 @@ def like():
     if likeCheck == 0:
         cheepRow.update_record(likes=l+1)
         db['likes'].insert(**{'liker': auth.user.id , 'liked': a})
-        return l+1
+        return 1
     else:
         cheepRow.update_record(likes=l-1)
         db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).delete()
-        return l-1
+        return -1
 
 @auth.requires_login()
 def search():
