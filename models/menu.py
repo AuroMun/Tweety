@@ -11,4 +11,5 @@ response.menu = [
     (T('Home'), False, URL('default','home')),
     (T('Profile'), False, URL('default','profile')),
     (T('Search'), False, URL('default','search')),
+    (T('Notifs'), False, URL('default','notifs')),
     ]

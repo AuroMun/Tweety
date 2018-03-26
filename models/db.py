@@ -154,7 +154,8 @@ db.define_table('cheeps',
                 Field('author', 'reference auth_user', readable=False, writable=False),
                 Field('tstamp', 'datetime', readable=False, writable=False),
                 Field('isReply', 'boolean', readable=False, writable=False, default=False),
-                Field('likes', 'integer', readable=False, writable=False, default=0))
+                Field('likes', 'integer', readable=False, writable=False, default=0),
+                Field('orig_author', 'reference auth_user', readable=False, writable=False))
 
 db.define_table('replies',
                 Field('parent', 'reference cheeps'),
@@ -171,7 +172,8 @@ db.define_table('likes',
 db.define_table('notifs',
                 Field('person', 'reference auth_user', readable=False, writable=False),
                 Field('notif_type', 'text'),
-                Field('link', 'text'))
+                Field('link', 'text'),
+               Field('opened', 'boolean', default=False))
 
 
 

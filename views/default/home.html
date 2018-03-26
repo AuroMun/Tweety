@@ -42,18 +42,42 @@
       console.log(response);
       n = parseInt(document.getElementById("likeButton"+a).innerHTML.trim().split(" ")[1]);
         
-      document.getElementById("likeButton"+a).innerHTML = "Like " + (n+parseInt(response))
+      document.getElementById("likeButton"+a).innerHTML = "Like " + (n+parseInt(response));
     });
   }
-</script>
+function recheepButton(cheepId){
+    //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+    var form = new FormData();
+    form.append("cheepId", cheepId);
+        
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "{{=URL('recheep')}}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    window.location = "{{=URL('home')}}";
+    });
+  }
+ </script>
 {{a=0}}
 {{=form}}
 <div class="panel">
 {{for cheep in cheeps:}}
-    {{a+=1}}
+    {{a=cheep.id}}
 <div class="cheepWrapper">
 <img class="avatar" src={{=URL('default/download', cheep.author.picture)}}/>
         <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
+        {{if cheep.author != cheep.orig_author: }}
+            <span>| Recheep from @{{=cheep.orig_author.handle}}</span>
+        {{pass}}
         <p>
             {{=cheep.body}}</a>
         </p>
@@ -66,7 +90,10 @@
     Reply
 
   </button>
+<button type="button" class="btn btn-primary"  onclick="recheepButton({{=cheep.id}})" >
+    Recheep
 
+  </button>
   <!-- The Modal -->
   <div class="modal fade" id={{="myModal"+str(a)}}>
     <div class="modal-dialog">

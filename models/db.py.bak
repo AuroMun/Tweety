@@ -171,7 +171,8 @@ db.define_table('likes',
 db.define_table('notifs',
                 Field('person', 'reference auth_user', readable=False, writable=False),
                 Field('notif_type', 'text'),
-                Field('link', 'text'))
+                Field('link', 'text'),
+               Field('opened', 'boolean', default=False))
 
 
 

@@ -13,6 +13,7 @@ def index():
 def home():
     db.cheeps.author.default = auth.user
     db.cheeps.tstamp.default = request.now
+    db.cheeps.orig_author.default = auth.user
     form = SQLFORM(db.cheeps).process()
     form.element('textarea[name=body]')['_style'] = 'width:400px; height:40px;'
     form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
@@ -59,6 +60,17 @@ def like():
         cheepRow.update_record(likes=l-1)
         db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).delete()
         return -1
+
+def recheep():
+    a = request.post_vars.cheepId
+    cheepRow = db(db.cheeps.id == a).select().first()
+    db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
+    return locals()
+    
+@auth.requires_login()
+def notifs():
+    notifList = db(db.notifs.person == auth.user.id).select()
+    return locals()
 
 @auth.requires_login()
 def search():
