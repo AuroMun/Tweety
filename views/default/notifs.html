@@ -1,0 +1,99 @@
+{{extend 'layout.html'}}
+<script>
+  function fillModal(parent, a){
+    //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+    var form = new FormData();
+    form.append("cheep_id", parent);
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "{{=URL('cheepPage')}}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+      document.getElementById("replyCheeps"+a).innerHTML = response;
+    });
+  }
+
+    function likeCheep(cheepId, a){
+    //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+    var form = new FormData();
+    form.append("cheepId", cheepId);
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "{{=URL('like')}}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      n = parseInt(document.getElementById("likeButton"+a).innerHTML.trim().split(" ")[1]);
+
+      document.getElementById("likeButton"+a).innerHTML = "Like " + (n+parseInt(response));
+    });
+  }
+function recheepButton(cheepId){
+    //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+    var form = new FormData();
+    form.append("cheepId", cheepId);
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "{{=URL('recheep')}}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    window.location = "{{=URL('home')}}";
+    });
+  }
+ </script>
+
+<ul class="list-group">
+{{for notif in notifList:}}
+{{if notif.notif_type!=4:}}
+  {{a = notif.cheep_id.orig_author}}
+  <li class="list-group-item" onclick="fillModal({{=a}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
+    <a href="{{=URL('default/profile', str(notif.follower_id))}}"> @{{=notif.follower_id.handle}} &nbsp; </a> liked/retweeted/recheeped your cheep!
+    <!-- The Modal -->
+    <div class="modal fade" id={{="myModal"+str(a)}}>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Modal Heading</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" id={{="replyCheeps"+str(a)}}>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{else:}}
+    <li class="list-group-item">
+      <a href="{{=URL('default/profile', str(notif.follower_id))}}"> @{{=notif.follower_id.handle}} &nbsp; </a> followed you!
+
+  {{pass}}
+</li>
+{{pass}}
+</ul>
