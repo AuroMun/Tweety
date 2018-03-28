@@ -38,6 +38,16 @@ def profile():
     details = db(db.auth_user.id==user.id).select()
     return locals()
 
+def cheepPage():
+    cheep_id = request.vars['cheep_id']
+    query1=(db.replies.parent==cheep_id) #Retrieve replies
+    query2=(db.replies.child==db.cheeps.id)
+    query3=(db.auth_user.id==db.cheeps.author)
+    replies = db(query1 & query2 & query3).select()
+    cheep = db(db.cheeps.id==cheep_id).select().first()
+    auth_id = auth.user.id
+    return locals()
+
 @auth.requires_login()
 def reply():
     a = request.post_vars
@@ -66,7 +76,7 @@ def recheep():
     cheepRow = db(db.cheeps.id == a).select().first()
     db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
     return locals()
-    
+
 @auth.requires_login()
 def notifs():
     notifList = db(db.notifs.person == auth.user.id).select()

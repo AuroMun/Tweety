@@ -1,14 +1,17 @@
-{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>
+<link rel="stylesheet" href="{{=URL('static', 'css/custom.css')}}"/>
+<link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap4.css')}}"/>
+
 <script>
   function fillModal(parent, a){
     //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
     var form = new FormData();
-    form.append("cheep_id", parent);
+    form.append("parent", parent);
 
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "{{=URL('cheepPage')}}",
+      "url": "{{=URL('replies')}}",
       "method": "POST",
       "processData": false,
       "contentType": false,
@@ -66,51 +69,42 @@ function recheepButton(cheepId){
     window.location = "{{=URL('home')}}";
     });
   }
+
  </script>
-{{a=0}}
-{{=form}}
-<div class="panel">
-{{for cheep in cheeps:}}
-    {{a=cheep.id}}
+
+{{a=cheep_id}}
 <div class="cheepWrapper">
 <img class="avatar" src={{=URL('default/download', cheep.author.picture)}}/>
-        <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
-        {{if cheep.author != cheep.orig_author: }}
-            <span>| Recheep from @{{=cheep.orig_author.handle}}</span>
-        {{pass}}
+     <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
+     {{if cheep.author != cheep.orig_author: }}
+         <span>| Recheep from @{{=cheep.orig_author.handle}}</span>
+     {{pass}}
+     <p>
+         {{=cheep.body}}</a>
+     </p>
+      <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
+     <button type="button" class="btn btn-primary" id="likeButton{{=a}}" onclick="likeCheep({{=cheep.id}}, {{=a}})">
+ Like {{=cheep.likes}}
+
+</button>
+     <button type="button" class="btn btn-primary" onclick="fillModal({{=cheep.id}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
+ Reply
+
+</button>
+<form enctype="multipart/form-data" action={{=URL('reply')}} method="post"> Reply: <input name="body" /> <input name="parent" type="hidden" value={{=cheep.id}} /> <input name="author" type="hidden" value={{=auth.user.id}} /><input type="submit" />
+</form>
+
+{{for cheep in replies:}}
+<div class="cheepWrapper">
+<img class="avatar" src={{=URL('default/download', cheep.cheeps.author.picture)}}/>
+        <span class="name">{{=(cheep.cheeps.author.first_name)}}</span> @{{=cheep.cheeps.author.handle}}
         <p>
-            {{=cheep.body}}</a>
+            {{=cheep.cheeps.body}}</a>
         </p>
-         <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
-        <button type="button" class="btn btn-primary" id="likeButton{{=a}}" onclick="likeCheep({{=cheep.id}}, {{=a}})">
-    Like {{=cheep.likes}}
+         <span class="time" style="padding-left:30px;"> on {{=cheep.cheeps.tstamp}} </span>
+        <button type="button" class="btn btn-primary" id="likeButton{{=cheep.cheeps.id}}" onclick="likeCheep({{=cheep.cheeps.id}}, {{=cheep.cheeps.id}})">
+    Like {{=cheep.cheeps.likes}}
 
   </button>
-        <button type="button" class="btn btn-primary" onclick="fillModal({{=cheep.id}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
-    Reply
-
-  </button>
-<button type="button" class="btn btn-primary"  onclick="recheepButton({{=cheep.id}})" >
-    Recheep
-
-  </button>
-  <!-- The Modal -->
-  <div class="modal fade" id={{="myModal"+str(a)}}>
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body" id={{="replyCheeps"+str(a)}}>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
 {{pass}}
-</div>
