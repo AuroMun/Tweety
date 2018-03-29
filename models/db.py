@@ -154,6 +154,7 @@ db.define_table('cheeps',
                 Field('author', 'reference auth_user', readable=False, writable=False),
                 Field('tstamp', 'datetime', readable=False, writable=False),
                 Field('isReply', 'boolean', readable=False, writable=False, default=False),
+                Field('parentCheep', 'reference cheeps', readable=False, writable=False),
                 Field('likes', 'integer', readable=False, writable=False, default=0),
                 Field('orig_author', 'reference auth_user', readable=False, writable=False))
 

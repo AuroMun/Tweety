@@ -51,8 +51,10 @@ def cheepPage():
 @auth.requires_login()
 def reply():
     a = request.post_vars
-    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now, 'isReply': True})
+    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now, 'isReply': True, 'parentCheep': a.parent})
     db['replies'].insert(**{'child': id_new, 'parent': a.parent})
+    reply_to = db(db.cheeps.id==a.parent).select(db.cheeps.author).first()
+    db['notifs'].insert(**{'person': reply_to.author, 'notif_type': 2, 'cheep_id': a.parent, 'follower_id': a.author})
     redirect(URL('home'))
     return locals()
 
@@ -62,6 +64,7 @@ def like():
     cheepRow = db(db.cheeps.id == a).select().first()
     l = cheepRow.likes
     likeCheck = db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).count()
+    #db['notifs'].insert(**{'person': reply_to.author, 'notif_type': 2, 'cheep_id': a.parent, 'follower_id': a.author})
     if likeCheck == 0:
         cheepRow.update_record(likes=l+1)
         db['likes'].insert(**{'liker': auth.user.id , 'liked': a})

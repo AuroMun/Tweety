@@ -4,7 +4,7 @@
     //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
     var form = new FormData();
     form.append("cheep_id", parent);
-
+    console.log("SOOOOLE");
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -70,11 +70,22 @@ function recheepButton(cheepId){
 <ul class="list-group">
 {{for notif in notifList:}}
 {{if notif.notif_type!=4:}}
-  {{a = notif.cheep_id.orig_author}}
+  {{a = notif.cheep_id}}
+  {{if notif.cheep_id.isReply==True:}};
+  {{a=notif.cheep_id.parentCheep}};
+  {{pass}}
   <li class="list-group-item" onclick="fillModal({{=a}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
-    <a href="{{=URL('default/profile', str(notif.follower_id))}}"> @{{=notif.follower_id.handle}} &nbsp; </a> liked/retweeted/recheeped your cheep!
+    <a href="{{=URL('default/profile', str(notif.follower_id))}}"> @{{=notif.follower_id.handle}} &nbsp; </a>
+    {{if notif.notif_type==1:}}
+      liked
+    {{elif notif.notif_type==2:}}
+    replied to
+    {{elif notif.notif_type==3:}}
+    recheeped
+    {{pass}}
+     your cheep!
     <!-- The Modal -->
-    <div class="modal fade" id={{="myModal"+str(a)}}>
+    <div class="modal fade" id={{="myModal"+str(a)}} data-backdrop="static" >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
