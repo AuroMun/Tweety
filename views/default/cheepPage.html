@@ -87,10 +87,9 @@ function recheepButton(cheepId){
  Like {{=cheep.likes}}
 
 </button>
-     <button type="button" class="btn btn-primary" onclick="fillModal({{=cheep.id}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
- Reply
-
-</button>
+<button type="button" class="btn btn-primary"  onclick="recheepButton({{=cheep.id}})" >
+    Recheep
+  </button>
 <form enctype="multipart/form-data" action={{=URL('reply')}} method="post"> Reply: <input name="body" /> <input name="parent" type="hidden" value={{=cheep.id}} /> <input name="author" type="hidden" value={{=auth.user.id}} /><input type="submit" />
 </form>
 
@@ -103,8 +102,9 @@ function recheepButton(cheepId){
         </p>
          <span class="time" style="padding-left:30px;"> on {{=cheep.cheeps.tstamp}} </span>
         <button type="button" class="btn btn-primary" id="likeButton{{=cheep.cheeps.id}}" onclick="likeCheep({{=cheep.cheeps.id}}, {{=cheep.cheeps.id}})">
-    Like {{=cheep.cheeps.likes}}
+              Like {{=cheep.cheeps.likes}}
+        </button>
+        <button type="button" class="btn btn-primary"  onclick="recheepButton({{=cheep.cheeps.id}})" >Recheep</button>
 
-  </button>
 </div>
 {{pass}}

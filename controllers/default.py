@@ -14,6 +14,7 @@ def home():
     db.cheeps.author.default = auth.user
     db.cheeps.tstamp.default = request.now
     db.cheeps.orig_author.default = auth.user
+
     form = SQLFORM(db.cheeps).process()
     form.element('textarea[name=body]')['_style'] = 'width:400px; height:40px;'
     form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
@@ -60,24 +61,30 @@ def reply():
 
 def like():
     a = request.post_vars.cheepId
-    print a, auth.user
     cheepRow = db(db.cheeps.id == a).select().first()
+    author = cheepRow.author
+    if cheepRow.isReply==True:
+        parentCheep = cheepRow.parentCheep
+    else: parentCheep = cheepRow.id
     l = cheepRow.likes
     likeCheck = db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).count()
     #db['notifs'].insert(**{'person': reply_to.author, 'notif_type': 2, 'cheep_id': a.parent, 'follower_id': a.author})
     if likeCheck == 0:
         cheepRow.update_record(likes=l+1)
         db['likes'].insert(**{'liker': auth.user.id , 'liked': a})
+        db['notifs'].insert(**{'person': author, 'notif_type': 1, 'cheep_id': parentCheep, 'follower_id': auth.user.id})
         return 1
     else:
         cheepRow.update_record(likes=l-1)
         db((db.likes.liker == auth.user.id) & (db.likes.liked == a)).delete()
+        db((db.notifs.person == author) & (db.notifs.notif_type == 1) & (db.notifs.cheep_id == parentCheep) & (db.notifs.follower_id == auth.user.id)).delete()
         return -1
 
 def recheep():
     a = request.post_vars.cheepId
     cheepRow = db(db.cheeps.id == a).select().first()
     db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
+    db['notifs'].insert(**{'person': cheepRow.author, 'notif_type': 3, 'cheep_id':cheepRow.id, 'follower_id': auth.user.id})
     return locals()
 
 @auth.requires_login()
@@ -119,9 +126,11 @@ def follow():
     if request.args(0) =='follow' and not db.followers(follower=me,followee=request.args(1)):
         # insert a new friendship request
         db.followers.insert(follower=me,followee=request.args(1))
+        db['notifs'].insert(**{'person': request.args(1), 'notif_type': 4, 'follower_id': auth.user.id})
     elif request.args(0)=='unfollow':
         # delete a previous friendship request
         db(db.followers.follower==me)(db.followers.followee==request.args(1)).delete()
+        db((db.notifs.person == request.args(1)) & (db.notifs.notif_type == 4) & (db.notifs.follower_id == auth.user.id)).delete()
 
 def replies():
     if request.env.request_method!='POST': raise HTTP(400)
