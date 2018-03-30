@@ -57,6 +57,11 @@ def cheepPage():
     auth_id = auth.user.id
     return locals()
 
+def readNotif():
+    a = request.vars['notif_id']
+    notifRow = db(db.notifs.id == a).select().first()
+    notifRow.update_record(opened=True)
+
 @auth.requires_login()
 def reply():
     a = request.post_vars
@@ -97,7 +102,7 @@ def recheep():
 
 @auth.requires_login()
 def notifs():
-    notifList = db(db.notifs.person == auth.user.id).select()
+    notifList = db((db.notifs.person == auth.user.id) & (db.notifs.opened == False)).select()
     return locals()
 
 @auth.requires_login()

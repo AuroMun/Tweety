@@ -1,5 +1,25 @@
 {{extend 'layout.html'}}
 <script>
+function readNotif(a){
+  //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+  var form = new FormData();
+  form.append("notif_id", a);
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "{{=URL('readNotif')}}",
+    "method": "POST",
+    "processData": false,
+    "contentType": false,
+    "mimeType": "multipart/form-data",
+    "data": form
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+}
+
   function fillModal(parent, a){
     //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
     var form = new FormData();
@@ -74,7 +94,7 @@ function recheepButton(cheepId){
   {{if notif.cheep_id.isReply==True:}};
   {{a=notif.cheep_id.parentCheep}};
   {{pass}}
-  <li class="list-group-item" onclick="fillModal({{=a}},{{=a}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
+  <li class="list-group-item" onclick="fillModal({{=a}},{{=a}});readNotif({{=notif.id}})" data-toggle="modal" data-target={{="#myModal"+str(a)}}>
     <a href="{{=URL('default/profile', str(notif.follower_id))}}"> @{{=notif.follower_id.handle}} &nbsp; </a>
     {{if notif.notif_type==1:}}
       liked
@@ -101,7 +121,7 @@ function recheepButton(cheepId){
       </div>
     </div>
   {{else:}}
-    <li class="list-group-item">
+    <li class="list-group-item" onclick="readNotif({{=notif.id}})">
       <a href="{{=URL('default/profile', str(notif.follower_id))}}"> @{{=notif.follower_id.handle}} &nbsp; </a> followed you!
 
   {{pass}}
