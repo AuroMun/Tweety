@@ -14,7 +14,6 @@ def home():
     db.cheeps.author.default = auth.user
     db.cheeps.tstamp.default = request.now
     db.cheeps.orig_author.default = auth.user
-
     form = SQLFORM(db.cheeps).process()
     form.element('textarea[name=body]')['_style'] = 'width:400px; height:40px;'
     form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
@@ -37,6 +36,8 @@ def profile():
         redirect(URL('home'))
     cheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     details = db(db.auth_user.id==user.id).select()
+    totFollowers = db(db.followers.followee==user.id).count()
+    totCheeps = db((db.cheeps.orig_author==user.id) & (db.cheeps.isReply==False)).count()
     query1 = (db.followers.followee==user.id)
     query2 = (db.followers.follower==auth.user.id)
     listOfFollowers =  db(query1 & query2).select()

@@ -6,14 +6,21 @@
 {{=det.first_name}}
 {{=det.last_name}}
 </br>
-{{=det.handle}}
+@{{=det.handle}}
+</br>
+</br>
+Cheeps:{{=totCheeps}}
+</br>
+Followers:{{=totFollowers}}
 {{pass}}
 <br>
+{{if user.id!=auth.user.id}}
 {{if isFollow == True:}}
 	<button onclick="ajax('{{=URL('follow',args=('unfollow',user.id))}}',[],null);$(this).parent().html('Unfollowed')">Unfollow</button>
     {{else:}}
     <button onclick="ajax('{{=URL('follow',args=('follow',user.id))}}',[],null);$(this).parent().html('Followed')">Follow</button>
 
+{{pass}}
 {{pass}}
 </div>
 <div class="panel">
