@@ -733,3 +733,8 @@
 [2018-03-26 15:11:18] EDIT Tweety/views/default/home.html: 0
 [2018-03-26 15:11:20] EDIT Tweety/views/default/home.html: 0
 [2018-03-26 15:13:09] EDIT Tweety/views/default/home.html: 0
+[2018-03-30 15:17:06] EDIT Tweety/controllers/default.py: 7
+[2018-03-30 15:18:36] EDIT Tweety/views/default/profile.html: 5
+[2018-03-30 15:25:21] EDIT Tweety/controllers/default.py: 0
+[2018-03-30 15:25:23] EDIT Tweety/views/default/search.html: 0
+[2018-03-30 15:25:25] EDIT Tweety/views/default/profile.html: 0

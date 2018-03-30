@@ -37,6 +37,13 @@ def profile():
         redirect(URL('home'))
     cheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     details = db(db.auth_user.id==user.id).select()
+    query1 = (db.followers.followee==user.id)
+    query2 = (db.followers.follower==auth.user.id)
+    listOfFollowers =  db(query1 & query2).select()
+    if len(listOfFollowers)!=0:
+        isFollow = True
+    else:
+        isFollow = False
     return locals()
 
 def cheepPage():

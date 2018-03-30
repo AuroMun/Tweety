@@ -4,12 +4,18 @@
 <img class="leftAvatar" src={{=URL('default/download', det.picture)}}/>
 </br>
 {{=det.first_name}}
-{{=det.last_name}} 
+{{=det.last_name}}
 </br>
 {{=det.handle}}
 {{pass}}
-</div>
+<br>
+{{if isFollow == True:}}
+	<button onclick="ajax('{{=URL('follow',args=('unfollow',user.id))}}',[],null);$(this).parent().html('Unfollowed')">Unfollow</button>
+    {{else:}}
+    <button onclick="ajax('{{=URL('follow',args=('follow',user.id))}}',[],null);$(this).parent().html('Followed')">Follow</button>
 
+{{pass}}
+</div>
 <div class="panel">
 {{for cheep in cheeps:}}
 <div class="cheepWrapper">
