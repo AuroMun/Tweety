@@ -65,7 +65,7 @@ def readNotif():
 @auth.requires_login()
 def reply():
     a = request.post_vars
-    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now, 'isReply': True, 'parentCheep': a.parent})
+    id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now, 'isReply': True, 'parentCheep': a.parent, 'orig_author': auth.user.id})
     db['replies'].insert(**{'child': id_new, 'parent': a.parent})
     reply_to = db(db.cheeps.id==a.parent).select(db.cheeps.author).first()
     db['notifs'].insert(**{'person': reply_to.author, 'notif_type': 2, 'cheep_id': a.parent, 'follower_id': a.author})
@@ -98,6 +98,7 @@ def recheep():
     cheepRow = db(db.cheeps.id == a).select().first()
     db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
     db['notifs'].insert(**{'person': cheepRow.author, 'notif_type': 3, 'cheep_id':cheepRow.id, 'follower_id': auth.user.id})
+
     return locals()
 
 @auth.requires_login()
