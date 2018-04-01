@@ -1,0 +1,125 @@
+2018-04-01 23:34:37,194 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2018-04-01 23:34:37,263 INFO o.a.j.JMeter: Loading user properties from: /usr/local/Cellar/jmeter/4.0/libexec/bin/user.properties
+2018-04-01 23:34:37,264 INFO o.a.j.JMeter: Loading system properties from: /usr/local/Cellar/jmeter/4.0/libexec/bin/system.properties
+2018-04-01 23:34:37,272 INFO o.a.j.JMeter: Copyright (c) 1998-2018 The Apache Software Foundation
+2018-04-01 23:34:37,272 INFO o.a.j.JMeter: Version 4.0 r1823414
+2018-04-01 23:34:37,274 INFO o.a.j.JMeter: java.version=9.0.1
+2018-04-01 23:34:37,274 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2018-04-01 23:34:37,274 INFO o.a.j.JMeter: os.name=Mac OS X
+2018-04-01 23:34:37,274 INFO o.a.j.JMeter: os.arch=x86_64
+2018-04-01 23:34:37,275 INFO o.a.j.JMeter: os.version=10.13.2
+2018-04-01 23:34:37,275 INFO o.a.j.JMeter: file.encoding=UTF-8
+2018-04-01 23:34:37,275 INFO o.a.j.JMeter: Max memory     =1073741824
+2018-04-01 23:34:37,275 INFO o.a.j.JMeter: Available Processors =4
+2018-04-01 23:34:37,290 INFO o.a.j.JMeter: Default Locale=English (EN)
+2018-04-01 23:34:37,291 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2018-04-01 23:34:37,291 INFO o.a.j.JMeter: JMeterHome=/usr/local/Cellar/jmeter/4.0/libexec
+2018-04-01 23:34:37,291 INFO o.a.j.JMeter: user.dir  =/Users/auro/Documents/Academics/web2py/applications/Tweety/tests
+2018-04-01 23:34:37,291 INFO o.a.j.JMeter: PWD       =/Users/auro/Documents/Academics/web2py/applications/Tweety/tests
+2018-04-01 23:34:37,294 INFO o.a.j.JMeter: IP: 10.2.128.215 Name: Sris-MacBook-Air.local FullName: 10.2.128.215
+2018-04-01 23:34:37,298 INFO o.a.j.JMeter: Setting property 'jmeter.reportgenerator.outputdir' to:'/Users/auro/Documents/Academics/web2py/applications/Tweety/tests/report'
+2018-04-01 23:34:37,301 INFO o.a.j.s.FileServer: Default base='/Users/auro/Documents/Academics/web2py/applications/Tweety/tests'
+2018-04-01 23:34:37,304 INFO o.a.j.s.FileServer: Set new base='/Users/auro/Documents/Academics/web2py/applications/Tweety/tests'
+2018-04-01 23:34:37,632 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2018-04-01 23:34:37,737 INFO o.a.j.s.SaveService: Using SaveService properties version 4.0
+2018-04-01 23:34:37,748 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2018-04-01 23:34:37,756 INFO o.a.j.s.SaveService: Loading file: Sample.jmx
+2018-04-01 23:34:38,085 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2018-04-01 23:34:38,096 INFO o.a.j.p.h.c.CacheManager: Will only cache the following methods: [GET]
+2018-04-01 23:34:38,125 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2018-04-01 23:34:38,125 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2018-04-01 23:34:38,125 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2018-04-01 23:34:38,125 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2018-04-01 23:34:38,126 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2018-04-01 23:34:38,126 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2018-04-01 23:34:38,210 INFO o.a.j.JMeter: Creating summariser <summary>
+2018-04-01 23:34:38,223 INFO o.a.j.r.d.ReportGenerator: ReportGenerator will use for Parsing the separator: ','
+2018-04-01 23:34:38,224 INFO o.a.j.r.d.ReportGenerator: Will generate report at end of test from  results file: result.jtl
+2018-04-01 23:34:38,226 INFO o.a.j.r.d.ReportGenerator: Reading report generator properties from: /usr/local/Cellar/jmeter/4.0/libexec/bin/reportgenerator.properties
+2018-04-01 23:34:38,230 INFO o.a.j.r.d.ReportGenerator: Merging with JMeter properties
+2018-04-01 23:34:38,254 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.temp_dir' not found, using default value 'temp' instead.
+2018-04-01 23:34:38,266 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.apdex_per_transaction' not found, using default value 'null' instead.
+2018-04-01 23:34:38,266 INFO o.a.j.r.c.ReportGeneratorConfiguration: apdex_per_transaction : {} is empty, not APDEX per transaction customization
+2018-04-01 23:34:38,266 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.sample_filter' not found, using default value 'null' instead.
+2018-04-01 23:34:38,267 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.report_title' not found, using default value 'null' instead.
+2018-04-01 23:34:38,267 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.start_date' not found, using default value 'null' instead.
+2018-04-01 23:34:38,267 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.end_date' not found, using default value 'null' instead.
+2018-04-01 23:34:38,267 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.date_format' not found, using default value 'null' instead.
+2018-04-01 23:34:38,267 INFO o.a.j.r.c.ReportGeneratorConfiguration: Will use date range start date: null, end date: null
+2018-04-01 23:34:38,279 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.activeThreadsOverTime.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,279 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.timeVsThreads.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,279 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimeDistribution.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,280 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.transactionsPerSecond.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,282 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentiles.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,283 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentilesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,283 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,284 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.connectTimeOverTime.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,284 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.latenciesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2018-04-01 23:34:38,286 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.filters_only_sample_series' not found, using default value 'true' instead.
+2018-04-01 23:34:38,286 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.series_filter' not found, using default value '' instead.
+2018-04-01 23:34:38,286 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.show_controllers_only' not found, using default value 'false' instead.
+2018-04-01 23:34:38,300 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2018-04-01 23:34:38,301 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2018-04-01 23:34:38,302 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2018-04-01 23:34:38,313 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2018-04-01 23:34:38,314 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2018-04-01 23:34:39,429 INFO o.a.j.JMeter: Running test (1522605879429)
+2018-04-01 23:34:39,534 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2018-04-01 23:34:39,535 INFO o.a.j.e.StandardJMeterEngine: Starting 45 threads for group Thread Group.
+2018-04-01 23:34:39,535 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2018-04-01 23:34:39,536 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=45 ramp-up=1 perThread=22.222221 delayedStart=false
+2018-04-01 23:34:39,558 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2018-04-01 23:34:39,585 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-2
+2018-04-01 23:34:39,609 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-3
+2018-04-01 23:34:39,620 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = Sris-MacBook-Air.local
+2018-04-01 23:34:39,634 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2018-04-01 23:34:39,637 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-4
+2018-04-01 23:34:39,659 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2018-04-01 23:34:39,659 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2018-04-01 23:34:39,660 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2018-04-01 23:34:39,660 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2018-04-01 23:34:39,664 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-5
+2018-04-01 23:34:39,690 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-6
+2018-04-01 23:34:39,703 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2018-04-01 23:34:39,703 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2018-04-01 23:34:39,717 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-7
+2018-04-01 23:34:39,742 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-8
+2018-04-01 23:34:39,765 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-9
+2018-04-01 23:34:39,794 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-10
+2018-04-01 23:34:39,820 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-11
+2018-04-01 23:34:39,844 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-12
+2018-04-01 23:34:39,867 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-13
+2018-04-01 23:34:39,894 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-14
+2018-04-01 23:34:39,921 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-15
+2018-04-01 23:34:39,944 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-16
+2018-04-01 23:34:39,971 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-17
+2018-04-01 23:34:39,993 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-18
+2018-04-01 23:34:40,028 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-19
+2018-04-01 23:34:40,042 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-20
+2018-04-01 23:34:40,067 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-21
+2018-04-01 23:34:40,092 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-22
+2018-04-01 23:34:40,120 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-23
+2018-04-01 23:34:40,142 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-24
+2018-04-01 23:34:40,165 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-25
+2018-04-01 23:34:40,192 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-26
+2018-04-01 23:34:40,220 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-27
+2018-04-01 23:34:40,243 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-28
+2018-04-01 23:34:40,266 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-29
+2018-04-01 23:34:40,292 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-30
+2018-04-01 23:34:40,314 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-31
+2018-04-01 23:34:40,340 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-32
+2018-04-01 23:34:40,366 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-33
+2018-04-01 23:34:40,389 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-34
+2018-04-01 23:34:40,427 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-35
+2018-04-01 23:34:40,452 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-36
+2018-04-01 23:34:40,477 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-37
+2018-04-01 23:34:40,506 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-38
+2018-04-01 23:34:40,527 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-39
+2018-04-01 23:34:40,550 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-40
+2018-04-01 23:34:40,576 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-41
+2018-04-01 23:34:40,613 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-42
+2018-04-01 23:34:40,638 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-43
+2018-04-01 23:34:40,659 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-44
+2018-04-01 23:34:40,680 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-45
+2018-04-01 23:34:42,485 INFO o.a.j.p.h.p.BaseParser: Created org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2018-04-01 23:34:42,784 INFO o.a.j.p.h.s.ResourcesDownloader: Creating ResourcesDownloader with keepalive_inseconds : 60

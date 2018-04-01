@@ -116,8 +116,13 @@ function recheepButton(cheepId){
 {{for cheep in cheeps:}}
     {{a=cheep.id}}
 <div class="cheepWrapper">
-<img class="avatar" src={{=URL('default/download', cheep.author.picture)}}/>
-        <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
+  {{if cheep.author.picture:}}
+  <img class="avatar" src={{=URL('default/download', cheep.author.picture)}}/>
+
+  {{else:}}
+  <img class="avatar" src={{=URL('static', 'images/default_avatar.png')}}/>
+  {{pass}}
+          <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
         {{if cheep.author != cheep.orig_author: }}
             <span>| Recheep from @{{=cheep.orig_author.handle}}</span>
         {{pass}}
