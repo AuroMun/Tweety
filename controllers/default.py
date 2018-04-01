@@ -6,7 +6,7 @@
 
 # ---- example index page ----
 def index():
-    if auth.user: redirect(URL('home'))
+    redirect(URL('home'))
     return locals()
 
 def parseHashtags(cheepBody,cid):
