@@ -48,7 +48,9 @@ def profile():
     cheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
     details = db(db.auth_user.id==user.id).select()
     totFollowers = db(db.followers.followee==user.id).count()
-    totCheeps = db((db.cheeps.orig_author==user.id) & (db.cheeps.isReply==False)).count()
+    tc = db((db.cheeps.orig_author==user.id) & (db.cheeps.isReply==False)).select()
+    totCheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).count()
+    print tc
     query1 = (db.followers.followee==user.id)
     query2 = (db.followers.follower==auth.user.id)
     listOfFollowers =  db(query1 & query2).select()
@@ -110,6 +112,11 @@ def recheep():
     id_new = db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
     db['notifs'].insert(**{'person': cheepRow.author, 'notif_type': 3, 'cheep_id':cheepRow.id, 'follower_id': auth.user.id})
     parseHashtags(cheepRow.body,id_new)
+    return locals()
+
+def deleteCheep():
+    a = request.post_vars.cheepId
+    db(db.cheeps.id == a).delete()
     return locals()
 
 @auth.requires_login()

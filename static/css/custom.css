@@ -59,6 +59,11 @@ img.avatar {
      height: 30px;
 }
 
+img.delCheep{
+  width: 10px;
+  height: 10px;
+}
+
 p {
     margin: 5px 50px 0 70px;
     padding: 0;

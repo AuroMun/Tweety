@@ -45,6 +45,29 @@
       document.getElementById("likeButton"+a).innerHTML = "Like " + (n+parseInt(response));
     });
   }
+
+  function deleteCheep(cheepId){
+  //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+  var form = new FormData();
+  form.append("cheepId", cheepId);
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "{{=URL('deleteCheep')}}",
+    "method": "POST",
+    "processData": false,
+    "contentType": false,
+    "mimeType": "multipart/form-data",
+    "data": form
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    window.location = "{{=URL('home')}}";
+  });
+}
+
 function recheepButton(cheepId){
     //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
     var form = new FormData();
@@ -96,6 +119,9 @@ function recheepButton(cheepId){
         <span class="name">{{=(cheep.author.first_name)}}</span> @{{=cheep.author.handle}}
         {{if cheep.author != cheep.orig_author: }}
             <span>| Recheep from @{{=cheep.orig_author.handle}}</span>
+        {{pass}}
+        {{if cheep.author==auth.user.id:}}
+        <img style="width:10px; height=10px; float:right; margin: 10px 19px 0;" onclick="deleteCheep({{=cheep.id}})" src={{=URL('static','cross.png')}}/>
         {{pass}}
         <p>
             <script>render("{{=cheep.body}}");</script>
