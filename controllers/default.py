@@ -50,7 +50,6 @@ def profile():
     totFollowers = db(db.followers.followee==user.id).count()
     tc = db((db.cheeps.orig_author==user.id) & (db.cheeps.isReply==False)).select()
     totCheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).count()
-    print tc
     query1 = (db.followers.followee==user.id)
     query2 = (db.followers.follower==auth.user.id)
     listOfFollowers =  db(query1 & query2).select()
@@ -81,7 +80,9 @@ def reply():
     id_new = db['cheeps'].insert(**{'body': a.body, 'author': a.author, 'tstamp': request.now, 'isReply': True, 'parentCheep': a.parent, 'orig_author': auth.user.id})
     db['replies'].insert(**{'child': id_new, 'parent': a.parent})
     reply_to = db(db.cheeps.id==a.parent).select(db.cheeps.author).first()
-    db['notifs'].insert(**{'person': reply_to.author, 'notif_type': 2, 'cheep_id': a.parent, 'follower_id': a.author})
+    if int(reply_to.author)!=int(a.author):
+        print reply_to.author,a.author,reply_to.author!=a.author, "     Wth!"
+        db['notifs'].insert(**{'person': reply_to.author, 'notif_type': 2, 'cheep_id': a.parent, 'follower_id': a.author})
     redirect(URL('home'))
     return locals()
 
@@ -98,7 +99,8 @@ def like():
     if likeCheck == 0:
         cheepRow.update_record(likes=l+1)
         db['likes'].insert(**{'liker': auth.user.id , 'liked': a})
-        db['notifs'].insert(**{'person': author, 'notif_type': 1, 'cheep_id': parentCheep, 'follower_id': auth.user.id})
+        if author!=auth.user.id:
+            db['notifs'].insert(**{'person': author, 'notif_type': 1, 'cheep_id': parentCheep, 'follower_id': auth.user.id})
         return 1
     else:
         cheepRow.update_record(likes=l-1)
@@ -110,7 +112,8 @@ def recheep():
     a = request.post_vars.cheepId
     cheepRow = db(db.cheeps.id == a).select().first()
     id_new = db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
-    db['notifs'].insert(**{'person': cheepRow.author, 'notif_type': 3, 'cheep_id':cheepRow.id, 'follower_id': auth.user.id})
+    if cheepRow.author!=auth.user.id:
+        db['notifs'].insert(**{'person': cheepRow.author, 'notif_type': 3, 'cheep_id':cheepRow.id, 'follower_id': auth.user.id})
     parseHashtags(cheepRow.body,id_new)
     return locals()
 

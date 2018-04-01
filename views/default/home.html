@@ -17,7 +17,7 @@
     }
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
+      //console.log(response);
       document.getElementById("replyCheeps"+a).innerHTML = response;
     });
   }
@@ -85,13 +85,14 @@ function recheepButton(cheepId){
      }
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
+      //console.log(response);
     window.location = "{{=URL('home')}}";
     });
   }
 
   function render(cheepBody){
     var res = cheepBody.split(" ");
+    //console.log(cheepBody + " is to be rendered");
     var parsed = '';
     for(i=0;i<res.length;i++){
       if(res[i][0]=='#'){
