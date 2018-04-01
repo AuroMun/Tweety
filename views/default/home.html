@@ -59,13 +59,32 @@ function recheepButton(cheepId){
       "contentType": false,
       "mimeType": "multipart/form-data",
       "data": form
-    }
+     }
 
     $.ajax(settings).done(function (response) {
       console.log(response);
     window.location = "{{=URL('home')}}";
     });
   }
+
+  function render(cheepBody){
+    var res = cheepBody.split(" ");
+    var parsed = '';
+    for(i=0;i<res.length;i++){
+      if(res[i][0]=='#'){
+        parsed+=' <a href="http://127.0.0.1:8000/Tweety/default/search?name=';
+        parsed+=res[i].substring(1,res[i].length)
+        parsed+= '">';
+        parsed+=res[i];
+        parsed+='</a> ';
+        //res[i].substring(1,res[i].length)
+      }
+      else parsed+=res[i];
+      parsed+=' ';
+    }
+    document.write(parsed);
+  }
+
  </script>
 {{a=0}}
 {{=form}}
@@ -79,7 +98,7 @@ function recheepButton(cheepId){
             <span>| Recheep from @{{=cheep.orig_author.handle}}</span>
         {{pass}}
         <p>
-            {{=cheep.body}}</a>
+            <script>render("{{=cheep.body}}");</script>
         </p>
          <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
         <button type="button" class="btn btn-primary" id="likeButton{{=a}}" onclick="likeCheep({{=cheep.id}}, {{=a}})">

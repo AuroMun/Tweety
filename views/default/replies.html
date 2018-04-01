@@ -3,7 +3,7 @@
 <img class="avatar" src={{=URL('default/download', cheep.cheeps.author.picture)}}/>
         <span class="name">{{=(cheep.cheeps.author.first_name)}}</span> @{{=cheep.cheeps.author.handle}}
         <p>
-            {{=cheep.cheeps.body}}</a>
+            {{=cheep.cheeps.body}}
         </p>
          <span class="time" style="padding-left:30px;"> on {{=cheep.cheeps.tstamp}} </span>
         <button type="button" class="btn btn-primary" id="likeButton{{=cheep.cheeps.id}}" onclick="likeCheep({{=cheep.cheeps.id}}, {{=cheep.cheeps.id}})">

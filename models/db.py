@@ -177,6 +177,9 @@ db.define_table('notifs',
                 Field('follower_id', 'reference auth_user', readable=False, writable=False),
                 Field('opened', 'boolean', default=False))
 
+db.define_table('hashtags',
+                Field('hashtag', 'text'),
+                Field('cheep_id', 'reference cheeps'))
 
 
 # -------------------------------------------------------------------------

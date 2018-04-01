@@ -9,19 +9,30 @@ def index():
     if auth.user: redirect(URL('home'))
     return locals()
 
+def parseHashtags(cheepBody,cid):
+    ctr = 0
+    if "#" in cheepBody:
+        for h in cheepBody.split("#"):
+            if ctr > 0:
+                print h.split()[0]
+                db['hashtags'].insert(**{'hashtag': h.split()[0] , 'cheep_id': cid})
+            ctr+=1
+
 @auth.requires_login()
 def home():
     db.cheeps.author.default = auth.user
     db.cheeps.tstamp.default = request.now
     db.cheeps.orig_author.default = auth.user
-    form = SQLFORM(db.cheeps).process()
+    form = SQLFORM(db.cheeps)
     form.element('textarea[name=body]')['_style'] = 'width:400px; height:40px;'
     form.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
     form2 = SQLFORM(db.cheeps, col3={'name': 'Your full name'})
     form2.element('textarea[name=body]')['_style'] = 'width:400px;height:40px;'
     form2.element('textarea[name=body]')['_placeholder'] = "What's up, lil bird?"
-    if form2.process().accepted:
-       response.flash("LALALA")
+    print request.vars
+    if form.process().accepted:
+        cheepBody = request.vars.body
+        parseHashtags(cheepBody,form.vars.id)
 
     followees = db(db.followers.follower==auth.user_id)
     list = [auth.user_id] + [row.followee for row in followees.select(db.followers.followee)]
@@ -96,9 +107,9 @@ def like():
 def recheep():
     a = request.post_vars.cheepId
     cheepRow = db(db.cheeps.id == a).select().first()
-    db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
+    id_new = db['cheeps'].insert(**{'body': cheepRow.body, 'author': auth.user.id, 'tstamp': request.now, 'orig_author': cheepRow.orig_author})
     db['notifs'].insert(**{'person': cheepRow.author, 'notif_type': 3, 'cheep_id':cheepRow.id, 'follower_id': auth.user.id})
-
+    parseHashtags(cheepRow.body,id_new)
     return locals()
 
 @auth.requires_login()
@@ -108,29 +119,34 @@ def notifs():
 
 @auth.requires_login()
 def search():
-    form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()))
-    if form.accepts(request):
-        tokens = form.vars.name.split()
-        query = reduce(lambda a,b:a&b,
+    #form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()))
+    if 'name' in request.vars:
+        tokens = request.vars['name'].split()
+        query1 = reduce(lambda a,b:a&b,
                        [db.auth_user.first_name.contains(k)|db.auth_user.last_name.contains(k) \
                             for k in tokens])
-        people = db(query).select( orderby=db.auth_user.first_name|db.auth_user.last_name)
+        query2 = reduce(lambda a,b:a&b,
+                       [db.hashtags.hashtag.contains(k) \
+                            for k in tokens])
+        people = db(query1).select( orderby=db.auth_user.first_name|db.auth_user.last_name)
+        hashtags = db(query2).select()
         #,left=db.followers.on(db.followers.followee==db.auth_user.id)
-        print "Heyy"
         for person in people:
             print person.id
             print auth.user.id
-            query1 = (db.followers.followee==person.id)
-            query2 = (db.followers.follower==auth.user.id)
-            listOfFollowers =  db(query1 & query2).select()
+            listOfFollowers =  db((db.followers.followee==person.id) & (db.followers.follower==auth.user.id)).select()
             if len(listOfFollowers)!=0:
                 person['isFollow'] = True
                 print "You are following " + person.first_name
             else:
                 person['isFollow'] = False
                 print "You are not following " + person.first_name
+        hashCheep = []
+        for hashtag in hashtags:
+            hashCheep.append(db(db.cheeps.id == hashtag['cheep_id']).select().first())
     else:
         people = []
+        hashCheep = []
     return locals()
 
 @auth.requires_login()
