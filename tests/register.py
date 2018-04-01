@@ -4,12 +4,13 @@ import os
 
 # instantiate a chrome options object so you can set the size and headless preference
 chrome_options = Options()
-#chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("--window-size=1920x1080")
 
 driver = webdriver.Chrome(chrome_options=chrome_options)
 
-for i in xrange(2):
+for i in xrange(50):
+    print "Creating TestUser"+str(i)
     driver.get("http://127.0.0.1:8000/Tweety/default/user/register?_next=%2FTweety%2Fdefault%2Fhome")
 
     first_name = driver.find_element_by_id("auth_user_first_name")
