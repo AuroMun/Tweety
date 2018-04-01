@@ -95,12 +95,13 @@ function recheepButton(cheepId){
 </h3>
 {{for user in people:}}
 {{=A(user.first_name, _href=URL('profile', args=user.id))}}
-
+{{if user.id != auth.user.id:}}
 {{if user.isFollow == True:}}
 	<button onclick="ajax('{{=URL('follow',args=('unfollow',user.id))}}',[],null);$(this).parent().html('Unfollowed')">Unfollow</button>
     {{else:}}
     <button onclick="ajax('{{=URL('follow',args=('follow',user.id))}}',[],null);$(this).parent().html('Followed')">Follow</button>
 
+{{pass}}
 {{pass}}
 {{pass}}
 {{pass}}
