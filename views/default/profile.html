@@ -45,6 +45,45 @@
       document.getElementById("likeButton"+a).innerHTML = "Like " + (n+parseInt(response));
     });
   }
+
+  function deleteCheep(cheepId){
+  //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
+  var form = new FormData();
+  form.append("cheepId", cheepId);
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "{{=URL('deleteCheep')}}",
+    "method": "POST",
+    "processData": false,
+    "contentType": false,
+    "mimeType": "multipart/form-data",
+    "data": form
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    window.location = "{{=URL('profile')}}";
+  });
+}
+function render(cheepBody){
+  var res = cheepBody.split(" ");
+  var parsed = '';
+  for(i=0;i<res.length;i++){
+    if(res[i][0]=='#'){
+      parsed+=' <a href="http://127.0.0.1:8000/Tweety/default/search?name=';
+      parsed+=res[i].substring(1,res[i].length)
+      parsed+= '">';
+      parsed+=res[i];
+      parsed+='</a> ';
+      //res[i].substring(1,res[i].length)
+    }
+    else parsed+=res[i];
+    parsed+=' ';
+  }
+  document.write(parsed);
+}
 	function recheepButton(cheepId){
     //document.getElementById("replyCheeps"+a).innerHTML = "THIS IS A TEST"
     var form = new FormData();
@@ -100,8 +139,11 @@ Followers:{{=totFollowers}}
 	        {{if cheep.author != cheep.orig_author: }}
 	            <span>| Recheep from @{{=cheep.orig_author.handle}}</span>
 	        {{pass}}
+          {{if cheep.author==auth.user.id:}}
+          <img style="width:10px; height=10px; float:right; margin: 10px 19px 0;" onclick="deleteCheep({{=cheep.id}})" src={{=URL('static','cross.png')}}/>
+          {{pass}}
 	        <p>
-	            {{=cheep.body}}</a>
+	            <script>render("{{=cheep.body}}");</script>
 	        </p>
 	         <span class="time" style="padding-left:30px;"> on {{=cheep.tstamp}} </span>
 	        <button type="button" class="btn btn-primary" id="likeButton{{=a}}" onclick="likeCheep({{=cheep.id}}, {{=a}})">
@@ -120,7 +162,6 @@ Followers:{{=totFollowers}}
 	    <div class="modal-dialog">
 	      <div class="modal-content">
 	        <div class="modal-header">
-	          <h4 class="modal-title">Modal Heading</h4>
 	          <button type="button" class="close" data-dismiss="modal">&times;</button>
 	        </div>
 	        <div class="modal-body" id={{="replyCheeps"+str(a)}}>

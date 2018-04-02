@@ -2,8 +2,11 @@
 <div class="cheepWrapper">
 <img class="avatar" src={{=URL('default/download', cheep.cheeps.author.picture)}}/>
         <span class="name">{{=(cheep.cheeps.author.first_name)}}</span> @{{=cheep.cheeps.author.handle}}
+        {{if cheep.author==auth.user.id:}}
+        <img style="width:10px; height=10px; float:right; margin: 10px 19px 0;" onclick="deleteCheep({{=cheep.cheeps.id}})" src={{=URL('static','cross.png')}}/>
+        {{pass}}
         <p>
-            {{=cheep.cheeps.body}}
+             <script>console.log("Okayy"); render("{{=cheep.cheeps.body}}");</script>
         </p>
          <span class="time" style="padding-left:30px;"> on {{=cheep.cheeps.tstamp}} </span>
         <button type="button" class="btn btn-primary" id="likeButton{{=cheep.cheeps.id}}" onclick="likeCheep({{=cheep.cheeps.id}}, {{=cheep.cheeps.id}})">

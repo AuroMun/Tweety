@@ -1,4 +1,6 @@
 databases
 errors
 sessions
+tests/report/*
+tests/result.jtl
 .DS_Store

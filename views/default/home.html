@@ -17,7 +17,7 @@
     }
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
+      //console.log(response);
       document.getElementById("replyCheeps"+a).innerHTML = response;
     });
   }
@@ -85,13 +85,14 @@ function recheepButton(cheepId){
      }
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
+      //console.log(response);
     window.location = "{{=URL('home')}}";
     });
   }
 
   function render(cheepBody){
     var res = cheepBody.split(" ");
+    //console.log(cheepBody + " is to be rendered");
     var parsed = '';
     for(i=0;i<res.length;i++){
       if(res[i][0]=='#'){
@@ -149,7 +150,6 @@ function recheepButton(cheepId){
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body" id={{="replyCheeps"+str(a)}}>
