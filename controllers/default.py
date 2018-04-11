@@ -5,6 +5,7 @@
 # -------------------------------------------------------------------------
 
 # ---- example index page ----
+
 def index():
     redirect(URL('home'))
     return locals()
@@ -45,7 +46,7 @@ def profile():
     user = db.auth_user(request.args(0)) or auth.user
     if not user:
         redirect(URL('home'))
-    cheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100))
+    cheeps = db((db.cheeps.author==user.id) & (db.cheeps.isReply==False)).select(orderby=~db.cheeps.tstamp, limitby=(0,100), cache=(cache.ram, 120), cacheable=True)
     details = db(db.auth_user.id==user.id).select()
     totFollowers = db(db.followers.followee==user.id).count()
     tc = db((db.cheeps.orig_author==user.id) & (db.cheeps.isReply==False)).select()

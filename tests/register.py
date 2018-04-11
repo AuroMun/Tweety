@@ -9,7 +9,7 @@ chrome_options.add_argument("--window-size=1920x1080")
 
 driver = webdriver.Chrome(chrome_options=chrome_options)
 
-for i in xrange(50):
+for i in xrange(200):
     print "Creating TestUser"+str(i)
     driver.get("http://127.0.0.1:8000/Tweety/default/user/register?_next=%2FTweety%2Fdefault%2Fhome")
 

@@ -30,6 +30,8 @@
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
     <!-- Favicons -->
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
+    <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','js/web2py-bootstrap4.js')}}"></script>
     {{block head}}{{end}}
   </head>
   <body>
@@ -57,7 +59,7 @@
             </div>
           </li>
           {{pass}}
-          {{pass}}          
+          {{pass}}
         </ul>
         {{if 'auth' in globals():}}
         <ul class="nav navbar-nav ml-auto">
@@ -77,12 +79,12 @@
               {{pass}}
             </div>
           </li>
-        </ul>        
+        </ul>
         {{pass}}
       </div>
     </nav>
 
-    <!-- Masthead ===================================== -->    
+    <!-- Masthead ===================================== -->
     {{block header}}
     {{end}}
     <!-- Main ========================================= -->
@@ -96,7 +98,7 @@
       </div>
     </div>
 
-    {{block footer}} <!-- this is default footer -->      
+    {{block footer}} <!-- this is default footer -->
     <footer class="footer">
       <div class="container-fluid">
         <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
@@ -108,8 +110,7 @@
     </footer>
     {{end}}
     <!-- The javascript =============================== -->
-    <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
-    <script src="{{=URL('static','js/web2py-bootstrap4.js')}}"></script>
+
     {{block page_js}}{{end page_js}}
     {{if response.google_analytics_id:}}
     <!-- Analytics ==================================== -->
